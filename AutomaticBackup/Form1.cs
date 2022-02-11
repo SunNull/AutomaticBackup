@@ -19,12 +19,20 @@ namespace AutomaticBackup
             this.btnA.Click += BtnA_Click;
             this.btnexit.Click += Btnexit_Click;
         }
-
+        /// <summary>
+        /// 退出
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btnexit_Click(object? sender, EventArgs e)
         {
             this.Close();
         }
-
+        /// <summary>
+        /// 手动备份
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnA_Click(object? sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(tbxold.Text) || string.IsNullOrWhiteSpace(tbxnew.Text))
@@ -34,7 +42,11 @@ namespace AutomaticBackup
             else
                 HelperNew.IsHaveOver(tbxold.Text, tbxnew.Text);
         }
-
+        /// <summary>
+        /// 最小化时需要最小化到托盘
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form1_SizeChanged(object? sender, EventArgs e)
         {
             if (this.WindowState == FormWindowState.Minimized)
@@ -45,7 +57,11 @@ namespace AutomaticBackup
         }
 
 
-
+        /// <summary>
+        /// 双击托盘展示界面
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Nfi_DoubleClick(object? sender, EventArgs e)
         {
             this.Visible = true;
@@ -53,7 +69,11 @@ namespace AutomaticBackup
             this.nfi.Visible = false;
         }
 
-
+        /// <summary>
+        /// 关闭自动备份
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnNoAutoBak_Click(object? sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(tbxold.Text) || string.IsNullOrWhiteSpace(tbxnew.Text))
@@ -63,7 +83,11 @@ namespace AutomaticBackup
             else
                 HelperNew.IsHaveOver(tbxold.Text, tbxnew.Text);
         }
-
+        /// <summary>
+        /// 开启自动备份
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnNoAuto_Click(object? sender, EventArgs e)
         {
             using (MyContext context = new())
@@ -118,7 +142,11 @@ namespace AutomaticBackup
                 thread.Start();
             }
         }
-
+        /// <summary>
+        /// 保存路径
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnOK_Click(object? sender, EventArgs e)
         {
             try
@@ -149,7 +177,11 @@ namespace AutomaticBackup
                 MessageBox.Show("保存错误");
             }
         }
-
+        /// <summary>
+        /// 取消，关闭
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btncancel_Click(object? sender, EventArgs e)
         {
             this.Close();
@@ -189,7 +221,7 @@ namespace AutomaticBackup
             while (IsAuto)
             {
                 HelperNew.IsHaveOver(tbxold.Text, tbxnew.Text);
-                Thread.Sleep(1000 * 15);
+                Thread.Sleep(1000 * 15);//十五秒自动备份一次
             }
         }
     }
