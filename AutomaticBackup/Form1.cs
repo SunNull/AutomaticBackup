@@ -29,7 +29,7 @@ namespace AutomaticBackup
         {
             if (string.IsNullOrWhiteSpace(tbxold.Text) || string.IsNullOrWhiteSpace(tbxnew.Text))
             {
-                MessageBox.Show("媳妇，先把路径填上");
+                MessageBox.Show("先把路径填上");
             }
             else
                 HelperNew.IsHaveOver(tbxold.Text, tbxnew.Text);
@@ -58,7 +58,7 @@ namespace AutomaticBackup
         {
             if (string.IsNullOrWhiteSpace(tbxold.Text) || string.IsNullOrWhiteSpace(tbxnew.Text))
             {
-                MessageBox.Show("媳妇，先把路径填上");
+                MessageBox.Show("先把路径填上");
             }
             else
                 HelperNew.IsHaveOver(tbxold.Text, tbxnew.Text);
@@ -110,7 +110,7 @@ namespace AutomaticBackup
             }
             if (string.IsNullOrWhiteSpace(tbxold.Text) || string.IsNullOrWhiteSpace(tbxnew.Text))
             {
-                MessageBox.Show("媳妇，先把路径填上");
+                MessageBox.Show("先把路径填上");
             }
             else
             {
@@ -175,7 +175,7 @@ namespace AutomaticBackup
             }
             if (string.IsNullOrWhiteSpace(tbxold.Text) || string.IsNullOrWhiteSpace(tbxnew.Text))
             {
-                MessageBox.Show("媳妇，先把路径填上");
+                MessageBox.Show("先把路径填上");
             }
             else
             {
