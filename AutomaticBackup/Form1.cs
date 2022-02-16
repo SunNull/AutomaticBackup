@@ -40,7 +40,11 @@ namespace AutomaticBackup
                 MessageBox.Show("先把路径填上");
             }
             else
-                HelperNew.IsHaveOver(tbxold.Text, tbxnew.Text);
+            {
+                Thread thread = new Thread(() => HaveAotu(false));
+                thread.IsBackground = true;
+                thread.Start();
+            }
         }
         /// <summary>
         /// 最小化时需要最小化到托盘
@@ -70,7 +74,7 @@ namespace AutomaticBackup
         }
 
         /// <summary>
-        /// 关闭自动备份
+        /// 手动备份
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -81,7 +85,12 @@ namespace AutomaticBackup
                 MessageBox.Show("先把路径填上");
             }
             else
-                HelperNew.IsHaveOver(tbxold.Text, tbxnew.Text);
+            {
+                IsAuto = true;
+                Thread thread = new Thread(() => HaveAotu(false));
+                thread.IsBackground = true;
+                thread.Start();
+            }
         }
         /// <summary>
         /// 开启自动备份
@@ -138,7 +147,8 @@ namespace AutomaticBackup
             }
             else
             {
-                Thread thread = new Thread(() => HaveAotu());
+                Thread thread = new Thread(() => HaveAotu(true));
+                thread.IsBackground = true;
                 thread.Start();
             }
         }
@@ -189,10 +199,10 @@ namespace AutomaticBackup
 
         private void Form1_Load(object? sender, EventArgs e)
         {
-//#pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-//            RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-//#pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-//            registryKey.SetValue("AutomaticBackup", Application.ExecutablePath);
+            //#pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
+            //            RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            //#pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
+            //            registryKey.SetValue("AutomaticBackup", Application.ExecutablePath);
             using (MyContext db = new())
             {
                 var res = db.USB.FirstOrDefault();
@@ -211,17 +221,20 @@ namespace AutomaticBackup
             }
             else
             {
-                Thread thread = new Thread(() => HaveAotu());
+                Thread thread = new Thread(() => HaveAotu(true));
+                thread.IsBackground = true;
                 thread.Start();
             }
         }
 
-        public void HaveAotu()
+        public void HaveAotu(bool IsContiniu)
         {
             while (IsAuto)
             {
                 HelperNew.IsHaveOver(tbxold.Text, tbxnew.Text);
                 Thread.Sleep(1000 * 15);//十五秒自动备份一次
+                if (!IsContiniu)
+                    IsAuto = false;
             }
         }
     }

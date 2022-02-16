@@ -17,8 +17,10 @@
                 //循环老路径，同时判断新路径是否存在或者判断文件大小是否一致
                 foreach (var item in listold)
                 {
+                    var nofullname = item.FullName.Replace(pathold, "");
+                    var noname = nofullname.Replace("\\" + item.Name, "");
                     //判断是否存在相同文件名的文件
-                    var res = listnew.Where(t => t.Name == item.Name).ToList();
+                    var res = listnew.Where(t => t.Name == item.Name && t.FullName.Replace(pathnew, "") == nofullname).ToList();
                     if (res.Count > 0)
                     {
                         //判断待备份文件是否已经更新，如果更新则复制粘贴替换原来的文件
@@ -37,7 +39,9 @@
                     }
                     else
                     {
-                        item.CopyTo(pathnew+"\\"+item.Name, true);
+                        if (!string.IsNullOrWhiteSpace(noname))
+                            Directory.CreateDirectory(pathnew + noname);
+                        item.CopyTo(pathnew + nofullname, true);
                     }
                 }
 
